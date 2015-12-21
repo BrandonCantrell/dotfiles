@@ -1,14 +1,24 @@
 #Dotfiles
 Dependencies:
-i3wm 
+
+i3wm
+
 i3blocks 
+
 dunst 
+
 acpi 
+
 scrot 
+
 nitrogen 
+
 redshift 
+
 compton 
+
 Awesome-Fonts 
+
 dmenu 
 
 #Installation
