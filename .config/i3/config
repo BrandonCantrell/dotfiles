@@ -154,12 +154,13 @@ bindsym $mod+a focus parent
 ##                           focus bindings                            #
 ########################################################################
 # customize workspace names
-set $ws1 1:LaptopScreen
-set $ws2 2:Web
-set $ws3 3:Dev
-set $ws4 4:Email
-set $ws5 5:Fun
-set $ws6 6:♪
+set $ws1 1: 
+set $ws2 2: 
+set $ws3 3: 
+set $ws4 4: Email
+set $ws5 5: 
+set $ws6 6: ♪
+set $ws7 7: 
 
 
 # switch to workspace
@@ -169,7 +170,7 @@ bindsym $mod+3 workspace $ws3
 bindsym $mod+4 workspace $ws4
 bindsym $mod+5 workspace $ws5
 bindsym $mod+6 workspace $ws6
-bindsym $mod+7 workspace 7
+bindsym $mod+7 workspace $ws7
 bindsym $mod+8 workspace 8
 bindsym $mod+9 workspace 9
 bindsym $mod+0 workspace 10
@@ -181,10 +182,15 @@ bindsym $mod+Shift+3 move container to workspace $ws3
 bindsym $mod+Shift+4 move container to workspace $ws4
 bindsym $mod+Shift+5 move container to workspace $ws5
 bindsym $mod+Shift+6 move container to workspace $ws6
-bindsym $mod+Shift+7 move container to workspace 7
+bindsym $mod+Shift+7 move container to workspace $ws7
 bindsym $mod+Shift+8 move container to workspace 8
 bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
+
+assign [class="Pidgin"] $ws1
+assign [class="Firefox"] $ws2
+assign [class="Lotus Notes"] $ws4
+assign [class="Atom"] $ws3
 #######################################################################
 ##                             i3 bindings                             #
 ########################################################################
@@ -232,6 +238,21 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
+######################################################################
+#                                Media Player
+######################################################################
+
+#pulseaudio controls
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #lower
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle #mute
+
+
+#Media Player controls
+bindsym XF86AudioPlay exec playerctl play
+bindsym XF86AudioPause exec playerctl pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
 #######################################################################
 ##                               startup                               #
 ########################################################################
@@ -262,12 +283,12 @@ bar {
 
 #exec "~/.bin/work.sh"
 exec "~/.bin/home.sh"
-exec "nitrogen --restore"
-exec "pulseaudio --start"
+exec_always "nitrogen --restore"
+exec_always "pulseaudio --start"
 exec "xrdb ~/.Xresources"
-#exec "redshift -t 6500:3700 &"
-exec "compton -CGbz -r 8 -o 0.2 -l -12 -t -12 --backend glx --vsync opengl --shadow-exclude 'argb && _NET_WM_OPAQUE_REGION@:c'"
-exec "dunst -config ~/.config/dunstrc &"
+exec "redshift -t 6500:3700 &"
+exec_always "compton -CGbz -r 8 -o 0.2 -l -12 -t -12 --backend glx --vsync opengl --shadow-exclude 'argb && _NET_WM_OPAQUE_REGION@:c'"
+exec_always "dunst -config ~/.config/dunstrc &"
 #exec "udiskie &"
 
 #exec "dropbox &"

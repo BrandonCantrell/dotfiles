@@ -17,19 +17,26 @@ color=#FFFDD0
 separator=false
 separator_block_width=5
 
+[volume label]
+full_text=:
+color=#1793D1
+separator=false
+
 [volume]
-label=♪
-#label=:
-#command=~/scripts/i3blocks/blocklets/volume.sh
+#label=♪
+#full_text=:
+command=~/scripts/i3blocks/blocklets/volume.sh
+#command=/usr/libexec/i3blocks/volume
+interval=1
 color=#1793D1
 
-[separator]
-#full_text=][
-full_text=
-align=center
-color=#FFFDD0
-separator=false
-separator_block_width=5
+# [separator]
+# full_text=][
+# full_text=
+# align=center
+# color=#FFFDD0
+# separator=false
+# separator_block_width=5
 
 #[weather label]
 #color=#d11793
@@ -46,17 +53,19 @@ separator_block_width=5
 
 [separator]
 
-#[root label]
-#color=#d15517
-#full_text= /:
+[root label]
+color=#d15517
+full_text= /:
 #full_text=☂ฺ ☀ฺ Weather ☂ฺ ☀ฺ
-#separator=false
+separator=false
 
-#[root]
+[root]
 #command=df -h | grep /dev/sda2 | awk '{print $3,$2,$5}'
-#command=~/scripts/i3blocks/blocklets/memory
-#color=#d15517
-#interval=30
+command=~/scripts/i3blocks/blocklets/memory
+color=#d15517
+interval=30
+
+[separator]
 
 [cpu]
 label= CPU:
@@ -68,33 +77,35 @@ interval=10
 
 [separator]
 
-#[Memory label]
-#color=#17d155
-#full_text=:
+[Memory label]
+color=#17d155
+full_text=:
 #full_text=☂ฺ ☀ฺ Weather ☂ฺ ☀ฺ
-#separator=false
+separator=false
 
-#[Memory]
+[Memory]
 #label=:
-#command=~/scripts/i3blocks/blocklets/partitions.sh
-#color=#17d155
-#separator=false
-#interval=30
+command=~/scripts/i3blocks/blocklets/partitions.sh
+color=#17d155
+separator=false
+interval=30
 
-#[separator]
+# [separator]
 
-#[disk-home]
-#command=~/scripts/i3/i3blocks/disk $HOME
-#color=#17d155
-#interval=30
+# [disk-home]
+# command=~/scripts/i3/i3blocks/disk $HOME
+# color=#17d155
+# interval=30
+
+[separator]
 
 [wireless]
-#label=WiFi
-full_text=WiFi
+label=
+full_text=
 command=/usr/libexec/i3blocks/network wlan0 W
 color=#00FF00
 interval=10
-
+[separator]
 [ethernet]
 label=:
 command=~/scripts/i3blocks/blocklets/network eth0 E
@@ -126,7 +137,9 @@ interval=10
 [battery]
 command=~/scripts/i3blocks/blocklets/battery
 interval=30
+
 [seperator]
+
 [Date]
 label=:
 command=date '+%a %b %d, %Y'
@@ -150,5 +163,3 @@ align=center
 color=#FFFDD0
 separator=false
 separator_block_width=5
-
-
