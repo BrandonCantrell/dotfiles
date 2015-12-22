@@ -89,7 +89,7 @@ floating_modifier $mod
 bindsym $mod+Return exec i3-sensible-terminal
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec dmenu_run
+bindsym $mod+d exec rofi -show run
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
@@ -245,7 +245,7 @@ bindsym $mod+r mode "resize"
 #pulseaudio controls
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #lower
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle #mute
+bindsym XF86Switch_VT_1 exec --no-startup-id pactl set-sink-mute 0 toggle #mute
 
 
 #Media Player controls
@@ -253,6 +253,11 @@ bindsym XF86AudioPlay exec playerctl play
 bindsym XF86AudioPause exec playerctl pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
+
+
+# # Sreen brightness controls
+bindsym XF86MonBrightnessUp exec xbacklight -inc 20 # increase screen brightness
+bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightness
 #######################################################################
 ##                               startup                               #
 ########################################################################
@@ -281,14 +286,14 @@ bar {
     }
 }
 
-#exec "~/.bin/work.sh"
-exec "~/.bin/home.sh"
-exec_always "nitrogen --restore"
-exec_always "pulseaudio --start"
-exec "xrdb ~/.Xresources"
-exec "redshift -t 6500:3700 &"
-exec_always "compton -CGbz -r 8 -o 0.2 -l -12 -t -12 --backend glx --vsync opengl --shadow-exclude 'argb && _NET_WM_OPAQUE_REGION@:c'"
-exec_always "dunst -config ~/.config/dunstrc &"
-#exec "udiskie &"
+#exec ~/.bin/work.sh
+exec ~/.bin/home.sh
+exec_always nitrogen --restore
+exec pulseaudio --start
+exec xrdb ~/.Xresources
+exec redshift -t 6500:3700 &
+exec compton -f
+exec dunst -config ~/.config/dunstrc &
+#exec udiskie &
 
-#exec "dropbox &"
+#exec dropbox &
