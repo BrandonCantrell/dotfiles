@@ -21,92 +21,70 @@
 # urgent
 
 # Global properties
-#
-# The top properties below are applied to every block, but can be overridden.
-# Each block command defaults to the script name to avoid boilerplate.
-command=/usr/share/i3blocks/$BLOCK_NAME
 separator_block_width=15
-markup=none
 
-# Volume indicator
-#
-# The first parameter sets the step (and units to display)
-# The second parameter overrides the mixer selection
-# See the script for details.
 [volume]
-label=VOL
-#label=♪
+# label=VOL
+label=:
 instance=Master
 #instance=PCM
+command=/usr/share/i3blocks/volume
 interval=1
 signal=10
 
-# Memory usage
-#
-# The type defaults to "mem" if the instance is not specified.
 [memory]
 label=MEM
+command=~/.config/i3blocks/blocklets/memory.sh
 separator=false
 interval=30
 
-# [memory]
+# [swap]
 # label=SWAP
 # instance=swap
-# separator=false
+# command=/usr/share/i3blocks/memory
 # interval=30
 
-# Disk usage
-#
-# The directory defaults to $HOME if the instance is not specified.
-# The script may be called with a optional argument to set the alert
-# (defaults to 10 for 10%).
-[disk]
-label=HOME
-#instance=/mnt/data
+[disk-home]
+label=
+instance=$HOME
+command=~/.config/i3blocks/blocklets/partitions.sh
 interval=30
 
-# Network interface monitoring
-#
-# If the instance is not specified, use the interface used for default route.
-# The address can be forced to IPv4 or IPv6 with -4 or -6 switches.
-[iface]
-#instance=wlan0
+[wireless]
+label=
+instance=wlan0
+#instance=wlp3s0
+command=/usr/share/i3blocks/network
 color=#00FF00
 interval=10
-separator=false
 
-[wifi]
-#instance=wlp3s0
+[ethernet]
+label=E
+instance=eth0
+#instance=enp0s25
+command=/usr/share/i3blocks/network
+color=#00FF00
 interval=10
 
-# [bandwidth]
-# #instance=eth0
-# interval=5
+#[cpu]
+#label=CPU
+#command=/usr/share/i3blocks/cpu_usage
+#interval=10
+#min_width=CPU: 100.00%
+#separator=false
 
-# CPU usage
-#
-# The script may be called with -w and -c switches to specify thresholds,
-# see the script for details.
-# [cpu_usage]
-# label=CPU
-# interval=10
-# min_width=CPU: 100.00%
-# #separator=false
+[load]
+label=
+command=/usr/share/i3blocks/load_average
+interval=10
 
-[load_average]
-interval=1
-
-# Battery indicator
-#
-# The battery instance defaults to 0.
 [battery]
 #label=BAT
 label=⚡
-#instance=1
+command=/usr/share/i3blocks/battery
 interval=30
 
-# Date Time
-#
 [time]
+label=
 command=date '+%Y-%m-%d %H:%M:%S'
 interval=1

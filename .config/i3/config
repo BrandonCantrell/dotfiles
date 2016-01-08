@@ -89,7 +89,7 @@ floating_modifier $mod
 bindsym $mod+Return exec i3-sensible-terminal
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec rofi -show run
+bindsym $mod+d exec rofi -show run -terminal xterm -font 'Fira Mono Medium 16' -lines 3 -eh 2 -width 100 -padding 400 -opacity "95" -bw 0 -bc "$black" -bg "$black" -fg "$darkgrey" -hlbg "$black" -hlfg "$white"
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
@@ -207,8 +207,10 @@ bindsym $mod+Shift+q kill
 ##                          display bindings                           #
 ########################################################################
 #
-bindsym                 $mod+shift+d exec "~/.bin/work.sh"
-bindsym                 $mod+q exec "~/.bin/lock.sh"
+bindsym $mod+shift+d exec "~/.bin/work.sh"
+bindsym $mod+q exec "~/.bin/lock.sh"
+bindsym Print exec "scrot 'scrot_%m-%d-%Y_%H-%M-%S.png' -q 100 -e 'mv $f ~/Pictures/'; notify-send -u low 'screenshot taken'"
+bindsym $mod+Print exec "scrot -s 'scrot_%m-%d-%Y_%H-%M-%S.png' -q 100 -e 'mv $f ~/Pictures/'; notify-send -u low 'screenshot taken'"
 #######################################################################
 ##                                modes                                #
 ########################################################################
@@ -243,12 +245,11 @@ bindsym $mod+r mode "resize"
 ######################################################################
 
 #pulseaudio controls
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #lower
-bindsym XF86Switch_VT_1 exec --no-startup-id pactl set-sink-mute 0 toggle #mute
+bindsym XF86AudioLowerVolume exec amixer -q -D pulse sset Master 5+
+bindsym XF86AudioRaiseVolume exec amixer -q -D pulse sset Master 5-
+bindsym XF86AudioMute exec amixer -q -D pulse sset Master toggle
 
-
-#Media Player controls
+#Media Player
 bindsym XF86AudioPlay exec playerctl play
 bindsym XF86AudioPause exec playerctl pause
 bindsym XF86AudioNext exec playerctl next
@@ -293,7 +294,7 @@ exec pulseaudio --start
 exec xrdb ~/.Xresources
 exec redshift -t 6500:3700 &
 exec compton -f
-exec dunst -config ~/.config/dunstrc &
+exec dunst  &
 #exec udiskie &
 
 #exec dropbox &
