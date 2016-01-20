@@ -287,8 +287,8 @@ bar {
     }
 }
 
-#exec ~/.bin/work.sh
-exec ~/.bin/home.sh
+exec ~/.bin/work.sh
+#exec ~/.bin/home.sh
 exec_always nitrogen --restore
 exec pulseaudio --start
 exec xrdb ~/.Xresources
