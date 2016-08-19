@@ -259,7 +259,7 @@ bindsym XF86AudioPrev exec playerctl previous
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-    status_command i3blocks #-c ~/.i3/i3blocks.conf
+    status_command i3blocks -c ~/genokan/devel/dotfiles/.config/i3blocks/config 2>~/i3blocks.err
     position top
     tray_output primary
     font pango:Fira Mono Medium 10
@@ -282,13 +282,13 @@ bar {
 }
 
 #exec "~/.bin/work.sh"
-exec "~/.bin/home.sh"
-exec_always "nitrogen --restore"
-exec_always "pulseaudio --start"
-exec "xrdb ~/.Xresources"
-exec "redshift -t 6500:3700 &"
-exec_always "compton -CGbz -r 8 -o 0.2 -l -12 -t -12 --backend glx --vsync opengl --shadow-exclude 'argb && _NET_WM_OPAQUE_REGION@:c'"
-exec_always "dunst -config ~/.config/dunstrc &"
+exec ~/.bin/home.sh
+exec nitrogen --restore
+exec pulseaudio --start
+# exec "xrdb ~/.Xresources"
+exec redshift -t 6500:3700 &
+exec no-startup-id compton -CGbz -f -r 8 -o 0.2 -l -12 -t -12 --backend glx --vsync opengl --shadow-exclude 'argb && _NET_WM_OPAQUE_REGION@:c'
+exec -no-startup-id dunst
 #exec "udiskie &"
 
 #exec "dropbox &"
