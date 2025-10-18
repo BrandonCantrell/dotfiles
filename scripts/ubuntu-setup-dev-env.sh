@@ -1,5 +1,4 @@
 #!/bin/bash
-#Author: Brandon Cantrell
 set -e  # Exit on any error
 
 echo "=== Ubuntu Development Environment Setup ==="
@@ -54,6 +53,27 @@ if ! command -v helm &> /dev/null; then
     curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
 fi
 
+# ArgoCD CLI
+if ! command -v argocd &> /dev/null; then
+    echo ">>> Installing ArgoCD CLI..."
+    curl -sSL -o argocd-linux-amd64 https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
+    sudo install -m 555 argocd-linux-amd64 /usr/local/bin/argocd
+    rm argocd-linux-amd64
+else
+    echo ">>> ArgoCD CLI already installed, skipping..."
+fi
+
+# Terraform
+if ! command -v terraform &> /dev/null; then
+    echo ">>> Installing Terraform..."
+    wget -O- https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
+    echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
+    sudo apt update
+    sudo apt install -y terraform
+else
+    echo ">>> Terraform already installed, skipping..."
+fi
+
 # VSCode extensions (if code is installed)
 if command -v code &> /dev/null; then
     echo ">>> Installing VSCode extensions..."
@@ -63,6 +83,7 @@ if command -v code &> /dev/null; then
     code --install-extension ms-kubernetes-tools.vscode-kubernetes-tools
     code --install-extension eamodio.gitlens
     code --install-extension ms-vscode-remote.remote-ssh
+    code --install-extension hashicorp.terraform
 fi
 
 echo ""
@@ -77,6 +98,8 @@ echo "  - Python 3 + venv + pip"
 echo "  - pipx + poetry + black + ruff + ipython"
 echo "  - Docker + docker-compose"
 echo "  - kubectl + k9s + helm"
+echo "  - ArgoCD CLI"
+echo "  - Terraform"
 if command -v code &> /dev/null; then
-    echo "  - VSCode extensions (Python, Docker, K8s, GitLens, Remote-SSH)"
+    echo "  - VSCode extensions (Python, Docker, K8s, GitLens, Remote-SSH, Terraform)"
 fi
